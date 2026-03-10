@@ -68,35 +68,95 @@
         .hat-blue {
             background-color: #4169E1;
         }
-        
+
         .hat-dark-blue {
             background-color: #2E4BC7;
         }
-        
+
         .hat-red {
             background-color: #DC143C;
         }
 
         /* Hat positioning */
-        .hat-1 { top: 40px; left: 100px; }
-        .hat-2 { top: 40px; left: 120px; }
-        .hat-3 { top: 40px; left: 140px; }
-        .hat-4 { top: 40px; left: 160px; }
-        .hat-5 { top: 40px; left: 180px; }
-        
-        .hat-6 { top: 60px; left: 80px; }
-        .hat-7 { top: 60px; left: 100px; }
-        .hat-8 { top: 60px; left: 120px; }
-        .hat-9 { top: 60px; left: 140px; }
-        .hat-10 { top: 60px; left: 160px; }
-        .hat-11 { top: 60px; left: 180px; }
-        .hat-12 { top: 60px; left: 200px; }
-        
-        .hat-13 { top: 20px; left: 120px; }
-        .hat-14 { top: 20px; left: 140px; }
-        .hat-15 { top: 20px; left: 160px; }
-        
-        .hat-16 { top: 0px; left: 140px; }
+        .hat-1 {
+            top: 40px;
+            left: 100px;
+        }
+
+        .hat-2 {
+            top: 40px;
+            left: 120px;
+        }
+
+        .hat-3 {
+            top: 40px;
+            left: 140px;
+        }
+
+        .hat-4 {
+            top: 40px;
+            left: 160px;
+        }
+
+        .hat-5 {
+            top: 40px;
+            left: 180px;
+        }
+
+        .hat-6 {
+            top: 60px;
+            left: 80px;
+        }
+
+        .hat-7 {
+            top: 60px;
+            left: 100px;
+        }
+
+        .hat-8 {
+            top: 60px;
+            left: 120px;
+        }
+
+        .hat-9 {
+            top: 60px;
+            left: 140px;
+        }
+
+        .hat-10 {
+            top: 60px;
+            left: 160px;
+        }
+
+        .hat-11 {
+            top: 60px;
+            left: 180px;
+        }
+
+        .hat-12 {
+            top: 60px;
+            left: 200px;
+        }
+
+        .hat-13 {
+            top: 20px;
+            left: 120px;
+        }
+
+        .hat-14 {
+            top: 20px;
+            left: 140px;
+        }
+
+        .hat-15 {
+            top: 20px;
+            left: 160px;
+        }
+
+        .hat-16 {
+            top: 0px;
+            left: 140px;
+        }
 
         /* Body shape - simplified Ferris */
         .body-1 {
@@ -441,6 +501,17 @@
             left: 220px;
         }
 
+        /* Arm claws */
+        .arm-claw-1 { top: 120px; left: 20px; }
+        .arm-claw-2 { top: 140px; left: 0px; }
+        .arm-claw-3 { top: 160px; left: 0px; }
+        .arm-claw-4 { top: 140px; left: 20px; }
+        
+        .arm-claw-5 { top: 120px; left: 260px; }
+        .arm-claw-6 { top: 140px; left: 280px; }
+        .arm-claw-7 { top: 160px; left: 280px; }
+        .arm-claw-8 { top: 140px; left: 260px; }
+
         /* Animations */
         @keyframes bounce {
 
@@ -502,17 +573,17 @@
         <div class="ferris">
             <!-- Cool hat for Ferris -->
             <div class="pixel hat-red hat-16"></div>
-            
+
             <div class="pixel hat-blue hat-13"></div>
             <div class="pixel hat-blue hat-14"></div>
             <div class="pixel hat-blue hat-15"></div>
-            
+
             <div class="pixel hat-red hat-1"></div>
             <div class="pixel hat-blue hat-2"></div>
             <div class="pixel hat-blue hat-3"></div>
             <div class="pixel hat-blue hat-4"></div>
             <div class="pixel hat-blue hat-5"></div>
-            
+
             <div class="pixel hat-dark-blue hat-6"></div>
             <div class="pixel hat-dark-blue hat-7"></div>
             <div class="pixel hat-dark-blue hat-8"></div>
@@ -520,7 +591,7 @@
             <div class="pixel hat-dark-blue hat-10"></div>
             <div class="pixel hat-dark-blue hat-11"></div>
             <div class="pixel hat-dark-blue hat-12"></div>
-            
+
             <!-- Ferris body -->
             <div class="pixel orange body-1"></div>
             <div class="pixel orange body-2"></div>
@@ -585,6 +656,17 @@
             <!-- Eyes -->
             <div class="pixel black eye-1"></div>
             <div class="pixel black eye-2"></div>
+
+            <!-- Arm claws -->
+            <div class="pixel claw arm-claw-1"></div>
+            <div class="pixel claw arm-claw-2"></div>
+            <div class="pixel claw arm-claw-3"></div>
+            <div class="pixel claw arm-claw-4"></div>
+            
+            <div class="pixel claw arm-claw-5"></div>
+            <div class="pixel claw arm-claw-6"></div>
+            <div class="pixel claw arm-claw-7"></div>
+            <div class="pixel claw arm-claw-8"></div>
 
             <!-- Claws/legs -->
             <div class="pixel claw claw-1"></div>
