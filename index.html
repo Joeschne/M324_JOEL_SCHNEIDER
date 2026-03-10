@@ -502,15 +502,45 @@
         }
 
         /* Arm claws */
-        .arm-claw-1 { top: 120px; left: 20px; }
-        .arm-claw-2 { top: 140px; left: 0px; }
-        .arm-claw-3 { top: 160px; left: 0px; }
-        .arm-claw-4 { top: 140px; left: 20px; }
-        
-        .arm-claw-5 { top: 120px; left: 260px; }
-        .arm-claw-6 { top: 140px; left: 280px; }
-        .arm-claw-7 { top: 160px; left: 280px; }
-        .arm-claw-8 { top: 140px; left: 260px; }
+        .arm-claw-1 {
+            top: 120px;
+            left: 20px;
+        }
+
+        .arm-claw-2 {
+            top: 140px;
+            left: 0px;
+        }
+
+        .arm-claw-3 {
+            top: 160px;
+            left: 0px;
+        }
+
+        .arm-claw-4 {
+            top: 140px;
+            left: 20px;
+        }
+
+        .arm-claw-5 {
+            top: 120px;
+            left: 260px;
+        }
+
+        .arm-claw-6 {
+            top: 140px;
+            left: 280px;
+        }
+
+        .arm-claw-7 {
+            top: 160px;
+            left: 280px;
+        }
+
+        .arm-claw-8 {
+            top: 140px;
+            left: 260px;
+        }
 
         /* Animations */
         @keyframes bounce {
@@ -563,6 +593,82 @@
             font-weight: bold;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
+
+        /* Sparkle Effects */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: #FFD700;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: sparkleFloat 2s ease-out forwards;
+        }
+
+        .particle {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: particleExplode 1s ease-out forwards;
+        }
+
+        .particle.orange { background: #FF6B35; }
+        .particle.blue { background: #4169E1; }
+        .particle.red { background: #DC143C; }
+        .particle.yellow { background: #FFD700; }
+        .particle.green { background: #32CD32; }
+        .particle.purple { background: #9932CC; }
+
+        @keyframes sparkleFloat {
+            0% {
+                opacity: 1;
+                transform: translateY(0px) scale(0);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(-10px) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.5);
+            }
+        }
+
+        @keyframes particleExplode {
+            0% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0.2);
+            }
+        }
+
+        /* Interactive hover effect for Ferris */
+        .ferris-container:hover .ferris {
+            animation: wiggle 0.5s infinite ease-in-out;
+        }
+
+        /* Fun background sparkles */
+        @keyframes backgroundSparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        .bg-sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(255, 215, 0, 0.6);
+            border-radius: 50%;
+            animation: backgroundSparkle 3s infinite ease-in-out;
+        }
+
+        .bg-sparkle:nth-child(odd) { animation-delay: 1s; }
+        .bg-sparkle:nth-child(3n) { animation-delay: 2s; }
     </style>
 </head>
 
@@ -662,7 +768,7 @@
             <div class="pixel claw arm-claw-2"></div>
             <div class="pixel claw arm-claw-3"></div>
             <div class="pixel claw arm-claw-4"></div>
-            
+
             <div class="pixel claw arm-claw-5"></div>
             <div class="pixel claw arm-claw-6"></div>
             <div class="pixel claw arm-claw-7"></div>
@@ -684,6 +790,111 @@
             <div class="pixel claw claw-12"></div>
         </div>
     </div>
+
+    <!-- Background sparkles -->
+    <div class="bg-sparkle" style="top: 10%; left: 20%;"></div>
+    <div class="bg-sparkle" style="top: 30%; left: 80%;"></div>
+    <div class="bg-sparkle" style="top: 70%; left: 15%;"></div>
+    <div class="bg-sparkle" style="top: 80%; left: 85%;"></div>
+    <div class="bg-sparkle" style="top: 20%; left: 60%;"></div>
+    <div class="bg-sparkle" style="top: 90%; left: 40%;"></div>
+
+    <script>
+        // Mouse sparkle trail
+        let mouseX = 0, mouseY = 0;
+        let sparkleTimer;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Create sparkle every few mouse moves
+            if (Math.random() < 0.3) {
+                createSparkle(mouseX, mouseY);
+            }
+        });
+
+        // Click particle explosion
+        document.addEventListener('click', (e) => {
+            createParticleExplosion(e.clientX, e.clientY);
+        });
+
+        // Make Ferris react to clicks
+        document.querySelector('.ferris-container').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const ferris = document.querySelector('.ferris');
+            ferris.style.animation = 'wiggle 0.3s ease-in-out';
+            
+            // Create extra sparkles around Ferris
+            for (let i = 0; i < 8; i++) {
+                setTimeout(() => {
+                    const rect = ferris.getBoundingClientRect();
+                    const x = rect.left + Math.random() * rect.width;
+                    const y = rect.top + Math.random() * rect.height;
+                    createSparkle(x, y);
+                }, i * 100);
+            }
+            
+            // Reset animation
+            setTimeout(() => {
+                ferris.style.animation = 'wiggle 1.5s infinite ease-in-out';
+            }, 300);
+        });
+
+        function createSparkle(x, y) {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = (x - 3) + 'px';
+            sparkle.style.top = (y - 3) + 'px';
+            document.body.appendChild(sparkle);
+            
+            // Remove sparkle after animation
+            setTimeout(() => {
+                if (sparkle.parentNode) {
+                    sparkle.parentNode.removeChild(sparkle);
+                }
+            }, 2000);
+        }
+
+        function createParticleExplosion(x, y) {
+            const colors = ['orange', 'blue', 'red', 'yellow', 'green', 'purple'];
+            const particleCount = 12;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = `particle ${colors[Math.floor(Math.random() * colors.length)]}`;
+                
+                const angle = (i / particleCount) * Math.PI * 2;
+                const distance = 30 + Math.random() * 40;
+                const offsetX = Math.cos(angle) * distance;
+                const offsetY = Math.sin(angle) * distance;
+                
+                particle.style.left = (x - 4) + 'px';
+                particle.style.top = (y - 4) + 'px';
+                particle.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+                
+                document.body.appendChild(particle);
+                
+                // Remove particle after animation
+                setTimeout(() => {
+                    if (particle.parentNode) {
+                        particle.parentNode.removeChild(particle);
+                    }
+                }, 1000);
+            }
+        }
+
+        // Periodic random sparkles around Ferris
+        setInterval(() => {
+            if (Math.random() < 0.4) {
+                const ferris = document.querySelector('.ferris-container');
+                const rect = ferris.getBoundingClientRect();
+                const x = rect.left + rect.width/2 + (Math.random() - 0.5) * rect.width * 1.5;
+                const y = rect.top + rect.height/2 + (Math.random() - 0.5) * rect.height * 1.5;
+                createSparkle(x, y);
+            }
+        }, 1500);
+    </script>
 </body>
 
 </html>
