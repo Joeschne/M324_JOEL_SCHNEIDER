@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dancing Ferris - Rust Mascot</title>
+    <style>
+        body {
+            background-color: #1a1a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .ferris-container {
+            position: relative;
+            animation: bounce 2s infinite ease-in-out;
+        }
+
+        .ferris {
+            width: 320px;
+            height: 320px;
+            image-rendering: pixelated;
+            position: relative;
+        }
+
+        /* Ferris body using CSS pixels */
+        .pixel {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Orange body parts */
+        .orange {
+            background-color: #FF6B35;
+        }
+
+        .dark-orange {
+            background-color: #E55A2B;
+        }
+
+        /* Black parts */
+        .black {
+            background-color: #2C2C2C;
+        }
+
+        /* White parts */
+        .white {
+            background-color: #FFFFFF;
+        }
+
+        /* Eyes */
+        .eye {
+            background-color: #000000;
+        }
+
+        /* Claws */
+        .claw {
+            background-color: #8B4513;
+        }
+
+        /* Body shape - simplified Ferris */
+        .body-1 {
+            top: 80px;
+            left: 80px;
+        }
+
+        .body-2 {
+            top: 80px;
+            left: 100px;
+        }
+
+        .body-3 {
+            top: 80px;
+            left: 120px;
+        }
+
+        .body-4 {
+            top: 80px;
+            left: 140px;
+        }
+
+        .body-5 {
+            top: 80px;
+            left: 160px;
+        }
+
+        .body-6 {
+            top: 80px;
+            left: 180px;
+        }
+
+        .body-7 {
+            top: 80px;
+            left: 200px;
+        }
+
+        .body-8 {
+            top: 100px;
+            left: 60px;
+        }
+
+        .body-9 {
+            top: 100px;
+            left: 80px;
+        }
+
+        .body-10 {
+            top: 100px;
+            left: 100px;
+        }
+
+        .body-11 {
+            top: 100px;
+            left: 120px;
+        }
+
+        .body-12 {
+            top: 100px;
+            left: 140px;
+        }
+
+        .body-13 {
+            top: 100px;
+            left: 160px;
+        }
+
+        .body-14 {
+            top: 100px;
+            left: 180px;
+        }
+
+        .body-15 {
+            top: 100px;
+            left: 200px;
+        }
+
+        .body-16 {
+            top: 100px;
+            left: 220px;
+        }
+
+        .body-17 {
+            top: 120px;
+            left: 40px;
+        }
+
+        .body-18 {
+            top: 120px;
+            left: 60px;
+        }
+
+        .body-19 {
+            top: 120px;
+            left: 80px;
+        }
+
+        .body-20 {
+            top: 120px;
+            left: 100px;
+        }
+
+        .body-21 {
+            top: 120px;
+            left: 120px;
+        }
+
+        .body-22 {
+            top: 120px;
+            left: 140px;
+        }
+
+        .body-23 {
+            top: 120px;
+            left: 160px;
+        }
+
+        .body-24 {
+            top: 120px;
+            left: 180px;
+        }
+
+        .body-25 {
+            top: 120px;
+            left: 200px;
+        }
+
+        .body-26 {
+            top: 120px;
+            left: 220px;
+        }
+
+        .body-27 {
+            top: 120px;
+            left: 240px;
+        }
+
+        .body-28 {
+            top: 140px;
+            left: 40px;
+        }
+
+        .body-29 {
+            top: 140px;
+            left: 60px;
+        }
+
+        .body-30 {
+            top: 140px;
+            left: 80px;
+        }
+
+        .body-31 {
+            top: 140px;
+            left: 100px;
+        }
+
+        .body-32 {
+            top: 140px;
+            left: 120px;
+        }
+
+        .body-33 {
+            top: 140px;
+            left: 140px;
+        }
+
+        .body-34 {
+            top: 140px;
+            left: 160px;
+        }
+
+        .body-35 {
+            top: 140px;
+            left: 180px;
+        }
+
+        .body-36 {
+            top: 140px;
+            left: 200px;
+        }
+
+        .body-37 {
+            top: 140px;
+            left: 220px;
+        }
+
+        .body-38 {
+            top: 140px;
+            left: 240px;
+        }
+
+        .body-39 {
+            top: 160px;
+            left: 60px;
+        }
+
+        .body-40 {
+            top: 160px;
+            left: 80px;
+        }
+
+        .body-41 {
+            top: 160px;
+            left: 100px;
+        }
+
+        .body-42 {
+            top: 160px;
+            left: 120px;
+        }
+
+        .body-43 {
+            top: 160px;
+            left: 140px;
+        }
+
+        .body-44 {
+            top: 160px;
+            left: 160px;
+        }
+
+        .body-45 {
+            top: 160px;
+            left: 180px;
+        }
+
+        .body-46 {
+            top: 160px;
+            left: 200px;
+        }
+
+        .body-47 {
+            top: 160px;
+            left: 220px;
+        }
+
+        .body-48 {
+            top: 180px;
+            left: 80px;
+        }
+
+        .body-49 {
+            top: 180px;
+            left: 100px;
+        }
+
+        .body-50 {
+            top: 180px;
+            left: 120px;
+        }
+
+        .body-51 {
+            top: 180px;
+            left: 140px;
+        }
+
+        .body-52 {
+            top: 180px;
+            left: 160px;
+        }
+
+        .body-53 {
+            top: 180px;
+            left: 180px;
+        }
+
+        .body-54 {
+            top: 180px;
+            left: 200px;
+        }
+
+        /* Eyes */
+        .eye-1 {
+            top: 100px;
+            left: 100px;
+        }
+
+        .eye-2 {
+            top: 100px;
+            left: 180px;
+        }
+
+        /* Claws (legs) */
+        .claw-1 {
+            top: 200px;
+            left: 80px;
+        }
+
+        .claw-2 {
+            top: 200px;
+            left: 100px;
+        }
+
+        .claw-3 {
+            top: 200px;
+            left: 180px;
+        }
+
+        .claw-4 {
+            top: 200px;
+            left: 200px;
+        }
+
+        .claw-5 {
+            top: 220px;
+            left: 60px;
+        }
+
+        .claw-6 {
+            top: 220px;
+            left: 80px;
+        }
+
+        .claw-7 {
+            top: 220px;
+            left: 100px;
+        }
+
+        .claw-8 {
+            top: 220px;
+            left: 120px;
+        }
+
+        .claw-9 {
+            top: 220px;
+            left: 160px;
+        }
+
+        .claw-10 {
+            top: 220px;
+            left: 180px;
+        }
+
+        .claw-11 {
+            top: 220px;
+            left: 200px;
+        }
+
+        .claw-12 {
+            top: 220px;
+            left: 220px;
+        }
+
+        /* Animations */
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-2deg);
+            }
+
+            25% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+
+            50% {
+                transform: translateY(-30px) rotate(-1deg);
+            }
+
+            75% {
+                transform: translateY(-15px) rotate(1deg);
+            }
+        }
+
+        @keyframes wiggle {
+
+            0%,
+            100% {
+                transform: rotate(0deg);
+            }
+
+            25% {
+                transform: rotate(3deg);
+            }
+
+            75% {
+                transform: rotate(-3deg);
+            }
+        }
+
+        .ferris {
+            animation: wiggle 1.5s infinite ease-in-out;
+        }
+
+        .title {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #FF6B35;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="title">🦀 Dancing Ferris! 🦀</div>
+
+    <div class="ferris-container">
+        <div class="ferris">
+            <!-- Ferris body -->
+            <div class="pixel orange body-1"></div>
+            <div class="pixel orange body-2"></div>
+            <div class="pixel orange body-3"></div>
+            <div class="pixel orange body-4"></div>
+            <div class="pixel orange body-5"></div>
+            <div class="pixel orange body-6"></div>
+            <div class="pixel orange body-7"></div>
+
+            <div class="pixel orange body-8"></div>
+            <div class="pixel orange body-9"></div>
+            <div class="pixel orange body-10"></div>
+            <div class="pixel orange body-11"></div>
+            <div class="pixel orange body-12"></div>
+            <div class="pixel orange body-13"></div>
+            <div class="pixel orange body-14"></div>
+            <div class="pixel orange body-15"></div>
+            <div class="pixel orange body-16"></div>
+
+            <div class="pixel orange body-17"></div>
+            <div class="pixel orange body-18"></div>
+            <div class="pixel orange body-19"></div>
+            <div class="pixel orange body-20"></div>
+            <div class="pixel orange body-21"></div>
+            <div class="pixel orange body-22"></div>
+            <div class="pixel orange body-23"></div>
+            <div class="pixel orange body-24"></div>
+            <div class="pixel orange body-25"></div>
+            <div class="pixel orange body-26"></div>
+            <div class="pixel orange body-27"></div>
+
+            <div class="pixel dark-orange body-28"></div>
+            <div class="pixel orange body-29"></div>
+            <div class="pixel orange body-30"></div>
+            <div class="pixel orange body-31"></div>
+            <div class="pixel orange body-32"></div>
+            <div class="pixel orange body-33"></div>
+            <div class="pixel orange body-34"></div>
+            <div class="pixel orange body-35"></div>
+            <div class="pixel orange body-36"></div>
+            <div class="pixel orange body-37"></div>
+            <div class="pixel dark-orange body-38"></div>
+
+            <div class="pixel orange body-39"></div>
+            <div class="pixel orange body-40"></div>
+            <div class="pixel orange body-41"></div>
+            <div class="pixel orange body-42"></div>
+            <div class="pixel orange body-43"></div>
+            <div class="pixel orange body-44"></div>
+            <div class="pixel orange body-45"></div>
+            <div class="pixel orange body-46"></div>
+            <div class="pixel orange body-47"></div>
+
+            <div class="pixel orange body-48"></div>
+            <div class="pixel orange body-49"></div>
+            <div class="pixel orange body-50"></div>
+            <div class="pixel orange body-51"></div>
+            <div class="pixel orange body-52"></div>
+            <div class="pixel orange body-53"></div>
+            <div class="pixel orange body-54"></div>
+
+            <!-- Eyes -->
+            <div class="pixel black eye-1"></div>
+            <div class="pixel black eye-2"></div>
+
+            <!-- Claws/legs -->
+            <div class="pixel claw claw-1"></div>
+            <div class="pixel claw claw-2"></div>
+            <div class="pixel claw claw-3"></div>
+            <div class="pixel claw claw-4"></div>
+
+            <div class="pixel claw claw-5"></div>
+            <div class="pixel claw claw-6"></div>
+            <div class="pixel claw claw-7"></div>
+            <div class="pixel claw claw-8"></div>
+            <div class="pixel claw claw-9"></div>
+            <div class="pixel claw claw-10"></div>
+            <div class="pixel claw claw-11"></div>
+            <div class="pixel claw claw-12"></div>
+        </div>
+    </div>
+</body>
+
+</html>
