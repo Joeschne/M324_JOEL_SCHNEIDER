@@ -1,0 +1,52 @@
+# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
+
+# Compiled output - support multiple projects
+**/dist
+**/tmp
+**/out-tsc
+**/bazel-out
+
+# Node - support multiple projects
+**/node_modules
+**/npm-debug.log
+**/yarn-error.log
+
+# Package manager cache
+**/.npm
+**/.pnpm
+
+# IDEs and editors
+.idea/
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# Visual Studio Code - allow project-specific settings
+**/.vscode/*
+!**/.vscode/settings.json
+!**/.vscode/tasks.json
+!**/.vscode/launch.json
+!**/.vscode/extensions.json
+!**/.vscode/mcp.json
+**/.history/*
+
+# Miscellaneous - support multiple projects
+**/.angular/cache
+**/.sass-cache/
+**/connect.lock
+**/coverage
+**/libpeerconnection.log
+**/testem.log
+**/typings
+**/__screenshots__/
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Direnv files
+.envrc
+/.direnv
