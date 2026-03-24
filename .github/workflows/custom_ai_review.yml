@@ -1,0 +1,13 @@
+name: Run container on PR
+
+on:
+  pull_request:
+
+jobs:
+  run-container:
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/joeschne/custom-ai-review:v3
+
+    steps:
+      - run: /review.sh
