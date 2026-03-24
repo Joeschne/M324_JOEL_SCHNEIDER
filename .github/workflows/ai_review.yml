@@ -2,7 +2,8 @@ name: AI Code Review with OpenAI
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened, ready_for_review]
+    # This makes it so that the workflow only runs once when the PR is opened and not on every push
+    types: [opened]
 
 jobs:
   ai_code_review:
@@ -10,6 +11,7 @@ jobs:
     steps:
       - name: AI Code Review
         uses: AleksandrFurmenkovOfficial/ai-code-review@v1.0
+        # if: github.event.pull_request.labels.*.name !contains 'ai_reviewed'
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           owner: ${{ github.repository_owner }}
@@ -19,3 +21,12 @@ jobs:
           ai_provider: "openai"
           openai_api_key: ${{ secrets.OPENAI_API_KEY }}
           openai_model: "gpt-3.5-turbo"
+
+      # Another approach to disable would be to add a label to the PR after the first successful
+      # run and check for that label in the if condition of the job
+      # - name: Mark as Reviewed
+      #   if: success()
+      #   uses: actions-ecosystem/action-add-labels@v1
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     labels: "ai_reviewed"
