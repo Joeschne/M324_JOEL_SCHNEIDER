@@ -1,0 +1,39 @@
+name: Run container on PR
+
+on:
+  pull_request:
+
+jobs:
+  ai_custom_review:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Run container
+        id: review
+        run: |
+          docker pull docker.io/joeschne/custom-ai-review:v4 >/dev/null 2>&1
+          docker run --rm \
+            -v "$GITHUB_WORKSPACE:/repo" \
+            -e BASE_REF="${{ github.event.pull_request.base.ref }}" \
+            -e HEAD_SHA="${{ github.event.pull_request.head.sha }}" \
+            docker.io/joeschne/custom-ai-review:v4 > output.txt 2>&1 || true
+
+          MAX_LINES=100
+          echo "output<<EOF" >> "$GITHUB_OUTPUT"
+          sed -n "1,${MAX_LINES}p" output.txt >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - uses: mshick/add-pr-comment@v3
+        with:
+          message: |
+            **Custom AI review output with PR diff**
+            ```text
+            ${{ steps.review.outputs.output }}
+            ```
