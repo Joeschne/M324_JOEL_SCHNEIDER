@@ -1,3 +1,3 @@
 #!/bin/sh
 
-echo "Running custom AI code review..."
+echo "Yeah the code sucks you should fix it. Have you tried not writing bad code?"
