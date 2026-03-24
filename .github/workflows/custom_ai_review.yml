@@ -4,10 +4,25 @@ on:
   pull_request:
 
 jobs:
-  run-container:
+  ai_custom_review:
     runs-on: ubuntu-latest
-    container:
-      image: docker.io/joeschne/custom-ai-review:v3
+    permissions:
+      pull-requests: write
 
     steps:
-      - run: /review.sh
+      - name: Run container
+        id: review
+        run: |
+          docker pull docker.io/joeschne/custom-ai-review:v3 >/dev/null 2>&1
+          docker run --rm docker.io/joeschne/custom-ai-review:v3 > output.txt 2>&1
+          echo "output<<EOF" >> $GITHUB_OUTPUT
+          cat output.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - uses: mshick/add-pr-comment@v3
+        with:
+          message: |
+            **Custom AI review output**
+            ```text
+            ${{ steps.review.outputs.output }}
+            ```
